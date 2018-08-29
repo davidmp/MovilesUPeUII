@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         btnEnviar2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendSMSMessage();
+               sendSMSMessage();
             }
         });
 
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.SEND_SMS)) {
+
             } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.SEND_SMS},
@@ -78,18 +79,16 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_SEND_SMS: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                try {
                     SmsManager smsManager = SmsManager.getDefault();
-
-                    smsManager.sendTextMessage(phoneNo, null, message, null, null);
-
-                    Toast.makeText(getApplicationContext(), "SMS sent.",
+                    smsManager.sendTextMessage(String.valueOf(txtNumero.getText()), null, String.valueOf(txtMensaje.getText()), null, null);
+                    Toast.makeText(getApplicationContext(), "SMS Sent! DMP",
                             Toast.LENGTH_LONG).show();
-                } else {
+                } catch (Exception e) {
                     Toast.makeText(getApplicationContext(),
-                            "SMS faild, please try again.", Toast.LENGTH_LONG).show();
-                    return;
+                            "SMS faild, please try again later! "+e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
                 }
             }
         }
