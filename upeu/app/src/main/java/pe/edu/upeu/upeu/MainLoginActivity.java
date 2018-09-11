@@ -7,18 +7,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import butterknife.BindView;
+
 public class MainLoginActivity extends AppCompatActivity {
 
-    Button btnIngresar;
-    EditText usuario, password;
+    @BindView(R.id.button) Button btnIngresar;
+    @BindView(R.id.editText) EditText usuario;
+    @BindView(R.id.editText2) EditText password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_login);
-        btnIngresar=(Button)findViewById(R.id.button);
-        usuario=(EditText)findViewById(R.id.editText);
-        password=(EditText)findViewById(R.id.editText2);
+
+        //btnIngresar=(Button)findViewById(R.id.button);
+        //usuario=(EditText)findViewById(R.id.editText);
+        //password=(EditText)findViewById(R.id.editText2);
 
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,7 +30,7 @@ public class MainLoginActivity extends AppCompatActivity {
                 Intent inte=new Intent();
                 inte.putExtra("valorUser",String.valueOf(usuario.getText()));
                 inte.putExtra("valorPass",String.valueOf(password.getText()));
-                inte.setClass(getApplicationContext(),MainActivity.class);
+                inte.setClass(getApplicationContext(),HomeActivity.class);
                 startActivity(inte);
             }
         });
