@@ -3,6 +3,7 @@ package pe.edu.upeu.upeuasistenciaqr;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,7 +22,7 @@ import pe.edu.upeu.dao.PersonaDAO;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    PersonaDAO dao;
+   // PersonaDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +31,10 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dao=new PersonaDAO(this);
-        List lista=dao.listarPersona();
-        Log.i("RESULTADO:", " "+lista.size() );
-        Toast.makeText(this, String.valueOf(" "+lista.size()),Toast.LENGTH_SHORT).show();
+     //   dao=new PersonaDAO(this);
+       // List lista=dao.listarPersona();
+       // Log.i("RESULTADO:", " "+lista.size() );
+       // Toast.makeText(this, String.valueOf(" "+lista.size()),Toast.LENGTH_SHORT).show();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -91,9 +92,12 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentManager fragmentManager=getSupportFragmentManager();
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            fragmentManager.beginTransaction().replace(R.id.contenido, new ReporteFragment()).commit();
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
