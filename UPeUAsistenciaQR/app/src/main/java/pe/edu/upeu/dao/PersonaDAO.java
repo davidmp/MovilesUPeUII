@@ -36,6 +36,8 @@ public class PersonaDAO extends DBCon {
             to.setApellidos(cur.getString(2));
             to.setDnicodigo(cur.getString(3));
             to.setIdPersona(cur.getInt(0));
+            to.setEmail(cur.getString(4));
+            to.setNumerocelular(cur.getString(5));
             lista.add(to);
         }
         return lista;
