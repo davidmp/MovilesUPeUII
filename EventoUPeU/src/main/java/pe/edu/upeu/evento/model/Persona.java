@@ -5,6 +5,7 @@
  */
 package pe.edu.upeu.evento.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -64,10 +65,13 @@ public class Persona implements Serializable {
     @Column(name = "numerocelular")
     private String numerocelular;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
+    @JsonIgnore
     private Collection<Asistencia> asistenciaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
+    @JsonIgnore
     private Collection<Mensajes> mensajesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
+    @JsonIgnore
     private Collection<Usuario> usuarioCollection;
 
     public Persona() {

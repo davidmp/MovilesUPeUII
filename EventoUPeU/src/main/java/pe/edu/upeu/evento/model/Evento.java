@@ -5,8 +5,11 @@
  */
 package pe.edu.upeu.evento.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -37,9 +42,10 @@ public class Evento implements Serializable {
     private Integer idEvento;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
     @Column(name = "fecha")
-    private String fecha;
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date fecha;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 8)
@@ -79,6 +85,7 @@ public class Evento implements Serializable {
     @Column(name = "latitud")
     private long latitud;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvento")
+    @JsonIgnore
     private Collection<Asistencia> asistenciaCollection;
 
     public Evento() {
@@ -88,7 +95,7 @@ public class Evento implements Serializable {
         this.idEvento = idEvento;
     }
 
-    public Evento(Integer idEvento, String fecha, String horainicio, String horafin, String nombreevento, String lugarevento, String tiempotolerancia, String estado, long longitud, long latitud) {
+    public Evento(Integer idEvento, Date fecha, String horainicio, String horafin, String nombreevento, String lugarevento, String tiempotolerancia, String estado, long longitud, long latitud) {
         this.idEvento = idEvento;
         this.fecha = fecha;
         this.horainicio = horainicio;
@@ -109,11 +116,11 @@ public class Evento implements Serializable {
         this.idEvento = idEvento;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
