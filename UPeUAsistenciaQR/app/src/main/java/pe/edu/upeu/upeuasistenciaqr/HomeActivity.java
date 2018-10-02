@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.contenido, new ReporteFragment()).commit();
 
         } else if (id == R.id.nav_gallery) {
-
+            fragmentManager.beginTransaction().replace(R.id.contenido, new RegAsistenciaFragment()).commit();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

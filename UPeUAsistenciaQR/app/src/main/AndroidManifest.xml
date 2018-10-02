@@ -3,6 +3,8 @@
     package="pe.edu.upeu.upeuasistenciaqr">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -26,6 +28,8 @@
             >
 
         </activity>
+        <activity android:name=".SimpleScannerActivity"></activity>
+
     </application>
 
 </manifest>
