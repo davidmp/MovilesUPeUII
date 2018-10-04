@@ -9,6 +9,9 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import pe.edu.upeu.dao.AsistenciaDAO;
+import pe.edu.upeu.dao.EventoDAO;
+import pe.edu.upeu.modelo.AsistenciaTO;
 //import pe.edu.upeu.dao.AsistenciaDao;
 //import pe.edu.upeu.dao.EventoDao;
 
@@ -20,8 +23,8 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
 
     private static final String TAG = "SimpleScannerActivity";
     private ZXingScannerView mScannerView;
-    //EventoDao eve;
-    //AsistenciaDao asis;
+    EventoDAO eve;
+    AsistenciaDAO asis;
     int idUsuario=0;
     Context cotex;
 
@@ -55,10 +58,19 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         // TextView resultado = (TextView) findViewById(R.id.idResultado);
 
         String dato = rawResult.getText();
-        //eve=new EventoDao(cotex);
-        //asis=new AsistenciaDao(cotex);
-        //int idEvento=eve.eventoActivo();
-        //asis.registrarAsistencia(idEvento, idUsuario,dato,dato,dato);
+        eve=new EventoDAO(cotex);
+        asis=new AsistenciaDAO(cotex);
+        int idEvento=eve.eventoActivo();
+
+        AsistenciaTO to=new AsistenciaTO();
+        to.setIdEvento(idEvento);
+        to.setIdPersona(1);
+        to.setIdUsuario(idUsuario);
+        to.setCodigo(dato);
+        to.setNombres(dato);
+        to.setCompanhia(dato);
+        asis.registrarAsistencia(to);
+
         //resultado.setText(dato);
         // Do something with the result here
         Log.v("Informacion: ","Lllego Aqui.....!");
