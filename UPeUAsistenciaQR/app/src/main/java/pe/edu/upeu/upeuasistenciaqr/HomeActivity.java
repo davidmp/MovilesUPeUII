@@ -101,7 +101,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
             fragmentManager.beginTransaction().replace(R.id.contenido, new RegAsistenciaFragment()).commit();
         } else if (id == R.id.nav_slideshow) {
-
+            fragmentManager.beginTransaction().replace(R.id.contenido, new ReportAsistenciaFragment()).commit();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
