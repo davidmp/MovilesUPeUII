@@ -2,7 +2,8 @@ package pe.edu.upeu.modelo;
 
 public class AsistenciaTO {
 
-	int idAsistencia, idPersona, idUsuario, idEvento;
+	int idAsistencia;
+	Object idPersona, idUsuario, idEvento;
     String codigo, nombres, companhia, fechahora, ofline;
 
     public int getIdAsistencia() {
@@ -13,27 +14,27 @@ public class AsistenciaTO {
         this.idAsistencia = idAsistencia;
     }
 
-    public int getIdPersona() {
+    public Object getIdPersona() {
         return idPersona;
     }
 
-    public void setIdPersona(int idPersona) {
+    public void setIdPersona(Object idPersona) {
         this.idPersona = idPersona;
     }
 
-    public int getIdUsuario() {
+    public Object getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(Object idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public int getIdEvento() {
+    public Object getIdEvento() {
         return idEvento;
     }
 
-    public void setIdEvento(int idEvento) {
+    public void setIdEvento(Object idEvento) {
         this.idEvento = idEvento;
     }
 
