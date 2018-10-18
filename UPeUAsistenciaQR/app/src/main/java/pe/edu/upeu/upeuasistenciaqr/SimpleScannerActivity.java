@@ -12,6 +12,12 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import pe.edu.upeu.dao.AsistenciaDAO;
 import pe.edu.upeu.dao.EventoDAO;
 import pe.edu.upeu.modelo.AsistenciaTO;
+import pe.edu.upeu.servis.AsisteciaServices;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 //import pe.edu.upeu.dao.AsistenciaDao;
 //import pe.edu.upeu.dao.EventoDao;
 
@@ -27,6 +33,10 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
     AsistenciaDAO asis;
     int idUsuario=0;
     Context cotex;
+
+    Retrofit retrofit;
+    AsisteciaServices asisteciaServices;
+    String urlBase="http://172.22.90.54:7171/";
 
     @Override
     public void onCreate(Bundle state) {
@@ -71,6 +81,20 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         to.setCompanhia(dato);
         asis.registrarAsistencia(to);
 
+        retrofit=new Retrofit.Builder()
+                .baseUrl(urlBase)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+        asisteciaServices=retrofit.create(AsisteciaServices.class);
+        /*AsistenciaTO asitTO=new AsistenciaTO();
+        asitTO.setIdEvento(idEvento);
+        asitTO.setIdPersona(1);
+        asitTO.setIdUsuario(idUsuario);*/
+        registrarAsistencia(asisteciaServices,to,idEvento);
+
+
+
+
+
         //resultado.setText(dato);
         // Do something with the result here
         Log.v("Informacion: ","Lllego Aqui.....!");
@@ -87,4 +111,21 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         alert1.show();*/
         mScannerView.resumeCameraPreview(this);
     }
+
+    private void registrarAsistencia(AsisteciaServices asisteciaServices, AsistenciaTO to, int idEvento){
+                //to.setIdEvento(idEvento);
+        Call<AsistenciaTO> call=asisteciaServices.guardarAsistencia(to,idEvento);
+        call.enqueue(new Callback<AsistenciaTO>() {
+            @Override
+            public void onResponse(Call<AsistenciaTO> call, Response<AsistenciaTO> response) {
+
+            }
+            @Override
+            public void onFailure(Call<AsistenciaTO> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "No se Pudo Registrar la Asistencia "+t.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e("ERROR","Error : "+t.getMessage());
+            }
+        });
+    }
+
 }

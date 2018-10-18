@@ -6,6 +6,8 @@
 package pe.edu.upeu.evento.api;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +29,7 @@ public class AsistenciaRestController {
     @Autowired
     public AsistenciaServis servis;   
     
-    
+    private final static Logger LOGGER = Logger.getLogger("pe.edu.upeu.evento.api.AsistenciaRestController");
    
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<Asistencia> listarUsuarios(){return servis.listarEntidad(); }
@@ -56,12 +58,13 @@ public class AsistenciaRestController {
         return servis.listarPorNombre(nombre);
     }
 
-    @RequestMapping(value = "/add", method = {RequestMethod.GET, RequestMethod.POST})
-    public void guardarEntidad(@RequestBody Asistencia asistencia) {
+    @RequestMapping(value = "/add/{idEvento}", method = {RequestMethod.GET, RequestMethod.POST})
+    public void guardarEntidad(@RequestBody Asistencia asistencia, @PathVariable String idEvento ) {
    // public void guardarEntidad(@RequestBody HttpServletRequest request) {
         //System.out.println("DMP------>"+usuario.getNombres());
         //System.out.println("Probar: "+request.getParameter("usuario"));
-        servis.guardarEntidad(asistencia);
+        LOGGER.log(Level.INFO, "Proceso exitoso : "+idEvento);
+        //servis.guardarEntidad(asistencia);
     } 
     
 }
