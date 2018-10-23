@@ -76,8 +76,10 @@ public class AsistenciaRestController {
         asistencia.setIdEvento(servisEv.buscarEntidad(Integer.parseInt(idEvento)));
         asistencia.setIdUsuario(servisUsu.buscarUsuario(Integer.parseInt(idUsuario)));
         asistencia.setIdPersona(serviPer.buscarEntidad(Integer.parseInt(idPersona)));
+        
         asistencia.setFechahora("2018-10-23");
         asistencia.setOfline("no");
+        
         LOGGER.log(Level.INFO, "Proceso Fecha : "+asistencia.getFechahora());
         LOGGER.log(Level.INFO, "Proceso Modo : "+asistencia.getOfline());
 

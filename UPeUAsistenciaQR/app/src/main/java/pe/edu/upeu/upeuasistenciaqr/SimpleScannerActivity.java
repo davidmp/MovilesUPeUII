@@ -76,9 +76,11 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         to.setIdEvento(idEvento);
         to.setIdPersona(2);
         to.setIdUsuario(idUsuario);
+
         to.setCodigo(datosVcard[2]);
         to.setNombres(datosVcard[3]);
         to.setCompanhia(datosVcard[3]);
+
         asis.registrarAsistencia(to);
 
         retrofit=new Retrofit.Builder()
@@ -122,8 +124,8 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
             }
             @Override
             public void onFailure(Call<AsistenciaTO> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "No se Pudo Registrar la Asistencia "+t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.e("ERROR","Error : "+t.getMessage());
+                //Toast.makeText(getApplicationContext(), "No se Pudo Registrar la Asistencia "+t.getMessage(), Toast.LENGTH_LONG).show();
+                //Log.e("ERROR","Error : "+t.getMessage());
             }
         });
     }
