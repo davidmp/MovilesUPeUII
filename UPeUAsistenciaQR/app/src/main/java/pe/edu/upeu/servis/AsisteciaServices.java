@@ -14,7 +14,7 @@ public interface AsisteciaServices {
     @GET("/EventoUPeU/asist/all")
     Call<List<AsistenciaTO>> listarAsistencia();
 
-    @POST("/EventoUPeU/asist/add/{idEvento}")
-    Call<AsistenciaTO> guardarAsistencia(@Body AsistenciaTO asistencia, @Path("idEvento") int idEvento);
+    @POST("/EventoUPeU/asist/add/{idEvento}/{idUsuario}/{idPersona}")
+    Call<AsistenciaTO> guardarAsistencia(@Body AsistenciaTO asistencia, @Path("idEvento") int idEvento, @Path("idUsuario") int idUsuario, @Path("idPersona") int idPersona);
 
 }

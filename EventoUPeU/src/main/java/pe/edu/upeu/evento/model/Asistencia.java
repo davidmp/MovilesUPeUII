@@ -38,7 +38,7 @@ public class Asistencia implements Serializable {
     private Integer idAsistencia;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
+    @Size(min = 1, max = 30)
     @Column(name = "codigo")
     private String codigo;
     @Basic(optional = false)

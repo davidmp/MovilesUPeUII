@@ -5,6 +5,7 @@
  */
 package pe.edu.upeu.evento.api;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import pe.edu.upeu.evento.model.Asistencia;
 import pe.edu.upeu.evento.model.Evento;
 import pe.edu.upeu.evento.service.AsistenciaServis;
+import pe.edu.upeu.evento.service.EventoServis;
+import pe.edu.upeu.evento.service.PersonaServis;
+import pe.edu.upeu.evento.service.UsuarioServis;
 
 /**
  *
@@ -28,6 +32,12 @@ public class AsistenciaRestController {
 
     @Autowired
     public AsistenciaServis servis;   
+    @Autowired
+    public EventoServis servisEv;   
+    @Autowired
+    public UsuarioServis servisUsu;   
+    @Autowired
+    public PersonaServis serviPer;   
     
     private final static Logger LOGGER = Logger.getLogger("pe.edu.upeu.evento.api.AsistenciaRestController");
    
@@ -58,13 +68,23 @@ public class AsistenciaRestController {
         return servis.listarPorNombre(nombre);
     }
 
-    @RequestMapping(value = "/add/{idEvento}", method = {RequestMethod.GET, RequestMethod.POST})
-    public void guardarEntidad(@RequestBody Asistencia asistencia, @PathVariable String idEvento ) {
+    @RequestMapping(value = "/add/{idEvento}/{idUsuario}/{idPersona}", method = {RequestMethod.GET, RequestMethod.POST})
+    public void guardarEntidad(@RequestBody Asistencia asistencia, @PathVariable String idEvento, @PathVariable String idUsuario , @PathVariable String idPersona) {
    // public void guardarEntidad(@RequestBody HttpServletRequest request) {
         //System.out.println("DMP------>"+usuario.getNombres());
         //System.out.println("Probar: "+request.getParameter("usuario"));
+        asistencia.setIdEvento(servisEv.buscarEntidad(Integer.parseInt(idEvento)));
+        asistencia.setIdUsuario(servisUsu.buscarUsuario(Integer.parseInt(idUsuario)));
+        asistencia.setIdPersona(serviPer.buscarEntidad(Integer.parseInt(idPersona)));
+        asistencia.setFechahora("2018-10-23");
+        asistencia.setOfline("no");
+        LOGGER.log(Level.INFO, "Proceso Fecha : "+asistencia.getFechahora());
+        LOGGER.log(Level.INFO, "Proceso Modo : "+asistencia.getOfline());
+
         LOGGER.log(Level.INFO, "Proceso exitoso : "+idEvento);
-        //servis.guardarEntidad(asistencia);
+        LOGGER.log(Level.INFO, "Codigo : "+asistencia.getCodigo());
+        LOGGER.log(Level.INFO, "Nombre Evento : "+servisEv.buscarEntidad(Integer.parseInt(idEvento)).getNombreevento());
+        servis.guardarEntidad(asistencia);
     } 
     
 }

@@ -71,14 +71,14 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         eve=new EventoDAO(cotex);
         asis=new AsistenciaDAO(cotex);
         int idEvento=eve.eventoActivo();
-
+        String[] datosVcard = dato.split("\n");
         AsistenciaTO to=new AsistenciaTO();
         to.setIdEvento(idEvento);
-        to.setIdPersona(1);
+        to.setIdPersona(2);
         to.setIdUsuario(idUsuario);
-        to.setCodigo(dato);
-        to.setNombres(dato);
-        to.setCompanhia(dato);
+        to.setCodigo(datosVcard[2]);
+        to.setNombres(datosVcard[3]);
+        to.setCompanhia(datosVcard[3]);
         asis.registrarAsistencia(to);
 
         retrofit=new Retrofit.Builder()
@@ -89,7 +89,7 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         asitTO.setIdEvento(idEvento);
         asitTO.setIdPersona(1);
         asitTO.setIdUsuario(idUsuario);*/
-        registrarAsistencia(asisteciaServices,to,idEvento);
+        registrarAsistencia(asisteciaServices,to,idEvento,idUsuario,2);
 
 
 
@@ -112,9 +112,9 @@ public class SimpleScannerActivity extends Activity implements ZXingScannerView.
         mScannerView.resumeCameraPreview(this);
     }
 
-    private void registrarAsistencia(AsisteciaServices asisteciaServices, AsistenciaTO to, int idEvento){
+    private void registrarAsistencia(AsisteciaServices asisteciaServices, AsistenciaTO to, int idEvento,int idUsuario,int idPersona){
                 //to.setIdEvento(idEvento);
-        Call<AsistenciaTO> call=asisteciaServices.guardarAsistencia(to,idEvento);
+        Call<AsistenciaTO> call=asisteciaServices.guardarAsistencia(to,idEvento, idUsuario, idPersona);
         call.enqueue(new Callback<AsistenciaTO>() {
             @Override
             public void onResponse(Call<AsistenciaTO> call, Response<AsistenciaTO> response) {
