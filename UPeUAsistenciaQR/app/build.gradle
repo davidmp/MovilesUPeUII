@@ -38,4 +38,5 @@ dependencies {
     //Consumo de Servicios REST
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    //compile 'com.github.mukeshsolanki:social-login-helper:1.0.2'
 }
